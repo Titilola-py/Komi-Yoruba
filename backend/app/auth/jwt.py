@@ -46,7 +46,11 @@ def create_access_token(user_id: int, email: str, expires_delta_minutes: int | N
         ValueError: If SECRET_KEY is not configured.
     """
     # Use provided expiration or configured default
-    expire_minutes = expires_delta_minutes or ACCESS_TOKEN_EXPIRE_MINUTES
+    expire_minutes = (
+        expires_delta_minutes
+        if expires_delta_minutes is not None
+        else ACCESS_TOKEN_EXPIRE_MINUTES
+    )
 
     issued_at = datetime.now(timezone.utc)
 
